@@ -1,0 +1,12 @@
+The programs in this supplement make use of routines from Numerical Recipes, 2nd edition, as well as the
+standard C libraries stdlib, stdio, malloc, math. The beginning of each program includes several
+"#include" statements that indicate the libraries that must be linked during compilation in order
+for these programs to properly compile. Operating systems and compilers differ, so it is the responsbility 
+of the user to properly link the codes in this supplement to the required libraries. Each code 
+also has a "standalone" version in which the required Numerical Recipes routines are included directly
+in the source code. In these standalone versions, the standard C libaries are still required but linkage 
+to the Numerical Recipes libraries is not. The user should validate the output of any code before proceeding 
+to use the code in their work. No guarantee is expressed or implied regarding the accuracy of these programs. 
+
+For additional help, example problems, or to send comments, please email Jon Pelletier at 
+jdpellet@email.arizona.edu
