@@ -1,0 +1,37 @@
+AC_PREREQ([2.59])
+
+AC_INIT([bedrock-erosion-model],[0.1.0],[csdms@colorado.edu])
+AC_CONFIG_HEADERS(config.h:config-h.in)
+AC_CONFIG_AUX_DIR([config])
+
+AM_INIT_AUTOMAKE([1.10])
+
+AC_PROG_CC
+
+AC_CHECK_PROGS(UNAME,uname)
+if test x$UNAME != x ; then
+   ARCH_NAME=`uname -s`-`uname -p`
+else
+   ARCH_NAME="Unknown"
+fi
+
+AC_CHECK_HEADERS([malloc.h])
+
+AC_CONFIG_FILES([Makefile])
+
+AC_OUTPUT
+
+echo \
+"------------------------------------------------------------------------
+Configuration:
+
+  Host System Type:           ${ARCH_NAME}
+  Source code location:       ${srcdir}
+  Install path:               ${prefix}
+  Compiler:                   ${CC}
+  Compiler flags:             ${CFLAGS}
+  Linker flags:               ${LIBS}
+
+  See config.h for further configuration information.
+------------------------------------------------------------------------"
+
