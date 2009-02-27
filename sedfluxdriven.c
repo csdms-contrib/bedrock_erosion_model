@@ -1,6 +1,4 @@
-#ifdef HAVE_MALLOC_H
-# include<malloc.h>
-#endif
+#include<malloc.h>
 #include<math.h>
 #include<stdio.h>
 #include<stdlib.h>
@@ -11,7 +9,7 @@
 #define PI 3.141592653589793
 #define sqrt2 1.414213562373
 #define oneoversqrt2 0.707106781186
-#define fillincrement 0.001
+#define fillincrement 0.01
 
 float delrho,alpha,*load,**erode,**slope,S,averosionrate,avreboundrate,avelevation;
 float oneoverdeltax,oneoverdeltax2,**U,K,D,X,duration,timestep;
@@ -369,46 +367,46 @@ int i,j;
 void mfdflowroute(i,j)
 int i,j;
 {    float tot;
- 
+
      tot=0;
-     if (topo[i][j]>topo[iup[i]][j]) 
+     if (topo[i][j]>topo[iup[i]][j])
       tot+=pow(topo[i][j]-topo[iup[i]][j],1.1);
-     if (topo[i][j]>topo[idown[i]][j]) 
+     if (topo[i][j]>topo[idown[i]][j])
       tot+=pow(topo[i][j]-topo[idown[i]][j],1.1);
-     if (topo[i][j]>topo[i][jup[j]]) 
+     if (topo[i][j]>topo[i][jup[j]])
       tot+=pow(topo[i][j]-topo[i][jup[j]],1.1);
-     if (topo[i][j]>topo[i][jdown[j]]) 
+     if (topo[i][j]>topo[i][jdown[j]])
       tot+=pow(topo[i][j]-topo[i][jdown[j]],1.1);
-     if (topo[i][j]>topo[iup[i]][jup[j]]) 
+     if (topo[i][j]>topo[iup[i]][jup[j]])
       tot+=pow((topo[i][j]-topo[iup[i]][jup[j]])*oneoversqrt2,1.1);
-     if (topo[i][j]>topo[iup[i]][jdown[j]]) 
+     if (topo[i][j]>topo[iup[i]][jdown[j]])
       tot+=pow((topo[i][j]-topo[iup[i]][jdown[j]])*oneoversqrt2,1.1);
-     if (topo[i][j]>topo[idown[i]][jup[j]]) 
+     if (topo[i][j]>topo[idown[i]][jup[j]])
       tot+=pow((topo[i][j]-topo[idown[i]][jup[j]])*oneoversqrt2,1.1);
-     if (topo[i][j]>topo[idown[i]][jdown[j]]) 
+     if (topo[i][j]>topo[idown[i]][jdown[j]])
       tot+=pow((topo[i][j]-topo[idown[i]][jdown[j]])*oneoversqrt2,1.1);
-     if (topo[i][j]>topo[iup[i]][j]) 
-      flow1[i][j]=pow(topo[i][j]-topo[iup[i]][j],1.1)/tot; 
+     if (topo[i][j]>topo[iup[i]][j])
+      flow1[i][j]=pow(topo[i][j]-topo[iup[i]][j],1.1)/tot;
        else flow1[i][j]=0;
-     if (topo[i][j]>topo[idown[i]][j]) 
-      flow2[i][j]=pow(topo[i][j]-topo[idown[i]][j],1.1)/tot; 
+     if (topo[i][j]>topo[idown[i]][j])
+      flow2[i][j]=pow(topo[i][j]-topo[idown[i]][j],1.1)/tot;
        else flow2[i][j]=0;
-     if (topo[i][j]>topo[i][jup[j]]) 
-      flow3[i][j]=pow(topo[i][j]-topo[i][jup[j]],1.1)/tot; 
+     if (topo[i][j]>topo[i][jup[j]])
+      flow3[i][j]=pow(topo[i][j]-topo[i][jup[j]],1.1)/tot;
        else flow3[i][j]=0;
-     if (topo[i][j]>topo[i][jdown[j]]) 
-      flow4[i][j]=pow(topo[i][j]-topo[i][jdown[j]],1.1)/tot; 
+     if (topo[i][j]>topo[i][jdown[j]])
+      flow4[i][j]=pow(topo[i][j]-topo[i][jdown[j]],1.1)/tot;
        else flow4[i][j]=0;
-     if (topo[i][j]>topo[iup[i]][jup[j]]) 
+     if (topo[i][j]>topo[iup[i]][jup[j]])
       flow5[i][j]=pow((topo[i][j]-topo[iup[i]][jup[j]])*oneoversqrt2,1.1)/tot;
        else flow5[i][j]=0;
-     if (topo[i][j]>topo[iup[i]][jdown[j]]) 
+     if (topo[i][j]>topo[iup[i]][jdown[j]])
       flow6[i][j]=pow((topo[i][j]-topo[iup[i]][jdown[j]])*oneoversqrt2,1.1)/tot;
        else flow6[i][j]=0;
-     if (topo[i][j]>topo[idown[i]][jup[j]]) 
+     if (topo[i][j]>topo[idown[i]][jup[j]])
       flow7[i][j]=pow((topo[i][j]-topo[idown[i]][jup[j]])*oneoversqrt2,1.1)/tot;
        else flow7[i][j]=0;
-     if (topo[i][j]>topo[idown[i]][jdown[j]]) 
+     if (topo[i][j]>topo[idown[i]][jdown[j]])
       flow8[i][j]=pow((topo[i][j]-topo[idown[i]][jdown[j]])*oneoversqrt2,1.1)/tot;
        else flow8[i][j]=0;
      flow[iup[i]][j]+=flow[i][j]*flow1[i][j];
@@ -432,11 +430,11 @@ int i,j;
      if (topo[i][jdown[j]]-topo[i][j]<down) down=topo[i][jdown[j]]-topo[i][j];
      if ((topo[iup[i]][jup[j]]-topo[i][j])*oneoversqrt2<down)
       down=(topo[iup[i]][jup[j]]-topo[i][j])*oneoversqrt2;
-     if ((topo[idown[i]][jup[j]]-topo[i][j])*oneoversqrt2<down) 
+     if ((topo[idown[i]][jup[j]]-topo[i][j])*oneoversqrt2<down)
       down=(topo[idown[i]][jup[j]]-topo[i][j])*oneoversqrt2;
-     if ((topo[iup[i]][jdown[j]]-topo[i][j])*oneoversqrt2<down) 
+     if ((topo[iup[i]][jdown[j]]-topo[i][j])*oneoversqrt2<down)
       down=(topo[iup[i]][jdown[j]]-topo[i][j])*oneoversqrt2;
-     if ((topo[idown[i]][jdown[j]]-topo[i][j])*oneoversqrt2<down) 
+     if ((topo[idown[i]][jdown[j]]-topo[i][j])*oneoversqrt2<down)
       down=(topo[idown[i]][jdown[j]]-topo[i][j])*oneoversqrt2;
      slope[i][j]=fabs(down)/deltax;
 }
@@ -484,10 +482,8 @@ void computeflexure()
      fourn(load,nn,2,-1);
      for (j=2;j<=lattice_size_y-1;j++)
        for (i=2;i<=lattice_size_x-1;i++)
-        {U[i][j]=(load[2*(iup[i]-1)*lattice_size_y+2*j-1]+
-          load[2*(idown[i]-1)*lattice_size_y+2*j-1]+
-         load[2*(iup[i]-1)*lattice_size_y+2*jdown[j]-1]+load[2*(i-
-           1)*lattice_size_y+2*jup[j]-1])/(4*4*lattice_size_x*lattice_size_y);}
+        {U[i][j]=delrho*(1-delrho)*(load[2*(i-1)*lattice_size_y+2*j-1]
+          /(lattice_size_x*lattice_size_y);}
 }
 
 void setupmatrices()
@@ -542,11 +538,11 @@ main()
      lattice_size_x=256;
      lattice_size_y=256;
      deltax=500;   /* m */
-     delrho=0.28;  /* (rho_m-rho_c)/rho_m */
+     delrho=0.28;  /* (rho_m-rho_c)/rho_c */
      oneoverdeltax=1.0/deltax;
      oneoverdeltax2=1.0/(deltax*deltax);
      timestep=1.0; /* kyr */
-     alpha=100000; /* m */
+     alpha=200;    /* multiples of deltax */
      hillslopeerosionrate=0.01; /* m/kyr */
      K=0.0005;     /* m^1/2/kyr */
      D=1.0;        /* m^2/kyr */
@@ -559,7 +555,7 @@ main()
        {fscanf(fp0,"%f",&topo[i][j]);topo[i][j]/=5;
         if ((i==1)||(j==1)||(i==lattice_size_x)||(j==lattice_size_y)) topo[i][j]=0;
         topoold[i][j]=topo[i][j];
-        flow[i][j]=deltax*deltax;   
+        flow[i][j]=deltax*deltax;
         area[i][j]=0;
         U[i][j]=0;
         erode[i][j]=0;
@@ -578,12 +574,12 @@ main()
          topoold[i][j]=topo[i][j];
        /*compute uplift rate*/
        if (time>1000) computeflexure();  /* compute isostatic uplift */
-       else 
+       else
         {/* or prescribe a tectonic uplift rate */
-		 for (j=2;j<=lattice_size_y-1;j++)
+         for (j=2;j<=lattice_size_y-1;j++)
           for (i=2;i<=lattice_size_x-1;i++)
            U[i][j]=1.0;  /* m/kyr */}
-       avelevation=0;avreboundrate=0;maxelevation=0; 
+       avelevation=0;avreboundrate=0;maxelevation=0;
        for (j=2;j<=lattice_size_y-1;j++)
         for (i=2;i<=lattice_size_x-1;i++)
          {avelevation+=topo[i][j];
@@ -626,20 +622,20 @@ main()
          mfdflowroute(i,j);}
        for (i=2;i<=lattice_size_x-1;i++)
         for (j=2;j<=lattice_size_y-1;j++)
-         area[i][j]=flow[i][j];             
-       /*perform upwind differencing */ 
+         area[i][j]=flow[i][j];
+       /*perform upwind differencing */
        max=0;
        for (i=2;i<=lattice_size_x-1;i++)
         for (j=2;j<=lattice_size_y-1;j++)
          {calculatealongchannelslope(i,j);
           capacity=slope[i][j]*sqrt(area[i][j]);
-          if (capacity>X) 
+          if (capacity>1/X)
            {change=timestep*K*sqrt(fabs(sedflux[i][j]))*deltax*slope[i][j];
             deltah[i][j]+=change;
             erode[i][j]+=change/timestep;
             if (deltah[i][j]<0) deltah[i][j]=0;
             channel[i][j]=1;}
-          topo[i][j]-=deltah[i][j]; 
+          topo[i][j]-=deltah[i][j];
           if (topo[i][j]<0) topo[i][j]=0;
           if (K*sqrt(fabs(sedflux[i][j]))*deltax>max)
            max=K*sqrt(fabs(sedflux[i][j]))*deltax;}
@@ -686,4 +682,4 @@ main()
             fprintf(fp2,"%f\n",erode[i][j]);
             fprintf(fp3,"%f\n",sedflux[i][j]);
             fprintf(fp4,"%f\n",U[i][j]);}}}
-} 
+}
