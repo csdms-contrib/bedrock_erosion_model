@@ -451,20 +451,20 @@ void computeflexure()
      load[1]*=1/delrho;
      load[2]*=1/delrho;
      for (j=1;j<=lattice_size_y/2;j++)
-       {fact=1/(delrho+pow(alpha*j*PI/lattice_size_y,4.0));
+       {fact=1/(delrho+4*delrho*pow(alpha*j*PI/lattice_size_y,4.0));
         load[2*j+1]*=fact;
         load[2*j+2]*=fact;
         load[2*lattice_size_y-2*j+1]*=fact;
         load[2*lattice_size_y-2*j+2]*=fact;}
      for (i=1;i<=lattice_size_x/2;i++)
-       {fact=1/(delrho+pow(alpha*i*PI/lattice_size_x,4.0));
+       {fact=1/(delrho+4*delrho*pow(alpha*i*PI/lattice_size_x,4.0));
         load[2*i*lattice_size_y+1]*=fact;
         load[2*i*lattice_size_y+2]*=fact;
         load[2*lattice_size_x*lattice_size_y-2*i*lattice_size_y+1]*=fact;
         load[2*lattice_size_x*lattice_size_y-2*i*lattice_size_y+2]*=fact;}
      for (i=1;i<=lattice_size_x/2;i++)
        for (j=1;j<=lattice_size_y/2;j++)
-         {fact=1/(delrho+pow(alpha*sqrt((PI*PI*i*i)/(lattice_size_x*lattice_size_x)
+         {fact=1/(delrho+4*delrho*pow(alpha*sqrt((PI*PI*i*i)/(lattice_size_x*lattice_size_x)
         +(PI*PI*j*j)/(lattice_size_y*lattice_size_y)),4.0));
           index=2*i*lattice_size_y+2*j+1;
           load[index]*=fact;
@@ -482,7 +482,7 @@ void computeflexure()
      fourn(load,nn,2,-1);
      for (j=2;j<=lattice_size_y-1;j++)
        for (i=2;i<=lattice_size_x-1;i++)
-        {U[i][j]=delrho*(1-delrho)*(load[2*(i-1)*lattice_size_y+2*j-1]
+        {U[i][j]=delrho*(1-delrho)*load[2*(i-1)*lattice_size_y+2*j-1]
           /(lattice_size_x*lattice_size_y);}
 }
 
@@ -538,7 +538,7 @@ main()
      lattice_size_x=256;
      lattice_size_y=256;
      deltax=500;   /* m */
-     delrho=0.28;  /* (rho_m-rho_c)/rho_c */
+     delrho=0.27;  /* (rho_m-rho_c)/rho_c */
      oneoverdeltax=1.0/deltax;
      oneoverdeltax2=1.0/(deltax*deltax);
      timestep=1.0; /* kyr */
