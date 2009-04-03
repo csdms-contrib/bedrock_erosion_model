@@ -63,6 +63,7 @@ int nrl,nrh,ncl,nch;
        /*allocate rows and set pointers to them */
         for(i=nrl;i<=nrh;i++) {
                       m[i]=(int *)malloc((unsigned) (nch-ncl+1)*sizeof(int));
+      m[i]-=ncl;
       }
        /* return pointer to array of pointers to rows */
         return m;
